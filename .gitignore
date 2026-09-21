@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+
+# Local source documents and generated retrieval indexes
+data/raw_pdfs/
+index/
+
+# Local environment and editor files
+.env
+.venv/
+venv/
+.vscode/
+.agents/
+.claude/
+
+# Streamlit local state
+.streamlit/secrets.toml

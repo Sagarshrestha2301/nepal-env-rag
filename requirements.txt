@@ -1,0 +1,36 @@
+# Core
+python-dotenv==1.0.1
+
+# PDF parsing
+pymupdf==1.24.14
+
+# Embeddings (CPU)
+sentence-transformers==3.3.1
+torch==2.5.1
+transformers==4.46.3
+huggingface-hub==0.26.2
+
+# Vector DB
+chromadb==0.5.20
+
+# Sparse retrieval
+rank-bm25==0.2.2
+
+# LLM runtime (Ollama Python client)
+ollama==0.4.4
+
+# UI
+streamlit==1.40.2
+
+# Utilities
+pandas==2.2.3
+tqdm==4.67.1
+numpy==1.26.4
+
+# Optional OCR (add only if you have scanned PDFs)
+# pytesseract==0.3.13
+# pdf2image==1.17.0
+# pillow==11.0.0
+
+# Optional Nepali OCR
+# easyocr==1.7.2
