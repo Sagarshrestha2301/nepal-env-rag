@@ -15,3 +15,4 @@ venv/
 
 # Streamlit local state
 .streamlit/secrets.toml
+sample_questions.txt
