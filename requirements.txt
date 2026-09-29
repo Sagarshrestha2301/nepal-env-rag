@@ -1,36 +1,54 @@
-# Core
-python-dotenv==1.0.1
+# nepal-env-rag — Python dependencies
+#
+# Install (inside .venv):
+#   pip install -r requirements.txt
+#
+# Then lock exact versions for reproducibility:
+#   pip freeze > requirements.lock.txt
+#
+# GPU: PyPI's Windows torch wheel is CPU-only. The extra index below makes
+# pip pick the CUDA build instead. Verify after install:
+#   python -c "import torch; print(torch.__version__, torch.cuda.is_available())"
+#   -> version should end in +cu128 and print True.
+--extra-index-url https://download.pytorch.org/whl/cu128
 
-# PDF parsing
-pymupdf==1.24.14
+# --- Core ------------------------------------------------------------------
+python-dotenv>=1.0.1
+pandas>=2.2.3
+numpy>=1.26.4
+tqdm>=4.67.1
 
-# Embeddings (CPU)
-sentence-transformers==3.3.1
-torch==2.5.1
-transformers==4.46.3
-huggingface-hub==0.26.2
+# --- Step 0-2: Google Drive access, manifest, download ---------------------
+google-api-python-client>=2.150.0
+google-auth-httplib2>=0.2.0
+google-auth-oauthlib>=1.2.1
 
-# Vector DB
-chromadb==0.5.20
+# --- Step 3-4: PDF quality check + text extraction -------------------------
+pymupdf>=1.24.14            # imported as `pymupdf` (falls back to `fitz`)
 
-# Sparse retrieval
-rank-bm25==0.2.2
+# --- Step 5: Chunking ------------------------------------------------------
+tokenizers>=0.20.3          # exact bge-m3 token counts
 
-# LLM runtime (Ollama Python client)
-ollama==0.4.4
+# --- Step 6: Embeddings (GPU) ----------------------------------------------
+torch>=2.5.1                # CUDA build via the extra index above
+sentence-transformers>=3.3.1
+transformers>=4.46.3
+huggingface-hub>=0.26.2
 
-# UI
-streamlit==1.40.2
+# --- Step 7: Retrieval -----------------------------------------------------
+chromadb>=0.5.20            # vector store
+rank-bm25>=0.2.2            # keyword (BM25) search for hybrid retrieval
 
-# Utilities
-pandas==2.2.3
-tqdm==4.67.1
-numpy==1.26.4
+# --- Step 8: Answer generation + UI ----------------------------------------
+ollama>=0.4.4               # local LLM client (needs the Ollama app installed)
+streamlit>=1.40.2
 
-# Optional OCR (add only if you have scanned PDFs)
-# pytesseract==0.3.13
-# pdf2image==1.17.0
-# pillow==11.0.0
+# --- Later: OCR for 8,184 scanned pages ------------------------------------
+# Needs the Tesseract program installed separately, with the `nep` language pack.
+# pytesseract>=0.3.13
+# pdf2image>=1.17.0         # needs Poppler installed separately
+# pillow>=11.0.0
 
-# Optional Nepali OCR
-# easyocr==1.7.2
+# --- Later: Preeti (legacy font) -> Unicode Nepali for 7,926 pages ---------
+# Evaluate a converter on sample pages before adopting, e.g.:
+# npttf2utf

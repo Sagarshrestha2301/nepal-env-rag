@@ -7,7 +7,7 @@ citations** from your own PDF library. No cloud, no API keys, no telemetry.
 Built for low-spec machines: Windows 11, RTX 3050 (4 GB VRAM), 16 GB RAM.
 
 ---
-
+  
 ## Table of Contents
 
 1. [What it does](#what-it-does)
@@ -444,3 +444,5 @@ python ingest.py
 ```powershell
 python -c "import fitz, chromadb, sentence_transformers, ollama, streamlit; print('OK')"; ollama list
 ```
+
+

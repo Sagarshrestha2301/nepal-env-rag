@@ -3,7 +3,17 @@ __pycache__/
 
 # Local source documents and generated retrieval indexes
 data/raw_pdfs/
+data/
 index/
+*.pdf
+*.jsonl
+*.csv
+*.log
+*.txt
+
+# Local credentials and OAuth tokens
+credentials.json
+token.json
 
 # Local environment and editor files
 .env
