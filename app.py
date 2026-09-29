@@ -57,8 +57,8 @@ RIDGE_SVG = """
 <svg class="ridge" width="220" height="56" viewBox="0 0 220 56" aria-hidden="true">
   <defs>
     <linearGradient id="ridge-grad" x1="0" x2="1" y1="0" y2="0">
-      <stop offset="0" stop-color="#0071e3"/>
-      <stop offset="1" stop-color="#5ac8fa"/>
+      <stop offset="0" stop-color="#ececec"/>
+      <stop offset="1" stop-color="#8f8f8f"/>
     </linearGradient>
   </defs>
   <path d="M2 52 L28 38 L42 44 L68 17 L82 29 L100 6 L118 27 L134 21 L158 39 L178 31 L218 52"
@@ -70,79 +70,93 @@ RIDGE_SVG = """
 CSS = """
 <style>
   :root {
-    --ink: #1d1d1f;
-    --ink-2: #6e6e73;
-    --ink-3: #86868b;
-    --line: #e5e5ea;
-    --fill: #f5f5f7;
-    --bubble: #f2f2f7;
-    --accent: #0071e3;
-    --accent-soft: #e8f1fc;
-    --warn: #a65200;
-    --warn-soft: #fff5e6;
+    --bg: #212121;
+    --sidebar: #171717;
+    --surface: #303030;
+    --surface-2: #2a2a2a;
+    --line: #3a3a3a;
+    --ink: #ececec;
+    --ink-2: #b4b4b4;
+    --ink-3: #8f8f8f;
+    --warn: #f5c26b;
+    --warn-soft: #3a2e17;
     --ok: #34c759;
-    --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI Variable Text",
-            "Segoe UI", system-ui, "Nirmala UI", "Noto Sans Devanagari", sans-serif;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI Variable Text", "Segoe UI",
+            system-ui, "Nirmala UI", "Noto Sans Devanagari", sans-serif;
   }
 
-  /* Base */
-  .stApp { font-family: var(--font); color: var(--ink); background: #fff; }
+  /* Base: dark everywhere, light text everywhere */
+  .stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"], section.main {
+    background: var(--bg) !important; font-family: var(--font); color: var(--ink);
+  }
   .stApp textarea, .stApp input, .stApp button { font-family: var(--font); }
-
-  /* Readable text even if Streamlit's dark theme is active (later rules override these) */
   .stApp p, .stApp li, .stApp label, .stApp summary, .stApp h1, .stApp h2, .stApp h3,
+  .stApp strong, .stApp em, .stApp code,
   .stApp [data-testid="stMarkdownContainer"], .stApp [data-testid="stWidgetLabel"],
-  .stApp [data-testid="stExpander"] summary span { color: var(--ink); }
-  .stApp .stButton button[kind="primary"] p { color: #fff; }
-  .block-container { max-width: 760px; padding-top: 2.5rem; padding-bottom: 8rem; }
-  header[data-testid="stHeader"] {
-    background: rgba(255, 255, 255, 0.72);
-    backdrop-filter: saturate(180%) blur(20px);
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
-  }
+  .stApp [data-testid="stWidgetLabel"] p,
+  .stApp [data-testid="stExpander"] summary span,
+  .stApp [data-testid="stSliderTickBarMin"], .stApp [data-testid="stSliderTickBarMax"],
+  .stApp [data-testid="stThumbValue"] { color: var(--ink) !important; }
+  .block-container { max-width: 780px; padding-top: 2.5rem; padding-bottom: 8rem; }
+  header[data-testid="stHeader"] { background: rgba(33, 33, 33, 0.9) !important; }
   footer { visibility: hidden; }
 
   /* Sidebar */
-  section[data-testid="stSidebar"] { background: var(--fill); border-right: 1px solid var(--line); }
+  section[data-testid="stSidebar"], section[data-testid="stSidebar"] > div {
+    background: var(--sidebar) !important; border-right: 1px solid #262626;
+  }
   section[data-testid="stSidebar"] .block-container { padding-top: 1.5rem; }
   .brand { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem; }
   .brand svg { flex: none; }
-  .brand-name { font-weight: 600; font-size: 1.02rem; letter-spacing: -0.01em; line-height: 1.2; }
-  .brand-sub { color: var(--ink-2); font-size: 0.8rem; }
-  .side-label { font-size: 0.8rem; font-weight: 600; color: var(--ink-2); margin: 1.4rem 0 0.25rem; }
+  .brand-name { font-weight: 600; font-size: 1.02rem; line-height: 1.2; color: var(--ink); }
+  .brand-sub { color: var(--ink-3); font-size: 0.8rem; }
+  .side-label { font-size: 0.8rem; font-weight: 600; color: var(--ink-3); margin: 1.4rem 0 0.25rem; }
   .offline {
     display: flex; gap: 0.55rem; align-items: flex-start; margin-top: 1.5rem;
     font-size: 0.8rem; line-height: 1.4; color: var(--ink-2);
-    background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 0.65rem 0.8rem;
+    background: var(--surface-2); border: 1px solid var(--line); border-radius: 12px;
+    padding: 0.65rem 0.8rem;
   }
   .offline .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok);
-                  margin-top: 0.35rem; flex: none; box-shadow: 0 0 0 3px rgba(52, 199, 89, 0.18); }
+                  margin-top: 0.35rem; flex: none; }
+
+  /* Dropdowns and other inputs */
+  .stApp [data-baseweb="select"] > div, .stApp [data-baseweb="input"] > div {
+    background: var(--surface) !important; border-color: var(--line) !important;
+    color: var(--ink) !important;
+  }
+  .stApp [data-baseweb="select"] * { color: var(--ink) !important; }
+  [data-baseweb="popover"] ul, [data-baseweb="popover"] li { background: var(--surface) !important;
+                                                           color: var(--ink) !important; }
+  [data-baseweb="popover"] li:hover { background: #3d3d3d !important; }
 
   /* Buttons */
   .stButton button, .stDownloadButton button {
-    border-radius: 12px; border: 1px solid var(--line); background: #fff; color: var(--ink);
-    font-weight: 500; box-shadow: none; transition: background 0.15s, border-color 0.15s;
+    border-radius: 12px; border: 1px solid var(--line); background: transparent;
+    color: var(--ink); font-weight: 500; box-shadow: none; transition: background 0.15s;
   }
   .stButton button:hover, .stDownloadButton button:hover {
-    background: var(--fill); border-color: #d2d2d7; color: var(--ink);
+    background: var(--surface); border-color: #4a4a4a; color: var(--ink);
   }
   .stButton button:active { transform: scale(0.98); }
   .stButton button:focus-visible, .stDownloadButton button:focus-visible {
-    outline: none; box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.25);
+    outline: none; box-shadow: 0 0 0 3px rgba(236, 236, 236, 0.35);
   }
   .stButton button[kind="primary"] {
-    background: var(--accent); border: none; color: #fff; border-radius: 999px;
+    background: var(--ink); border: none; color: #171717; border-radius: 999px;
   }
-  .stButton button[kind="primary"]:hover { background: #0077ed; color: #fff; }
+  .stButton button[kind="primary"]:hover { background: #ffffff; color: #171717; }
+  .stApp .stButton button[kind="primary"] p { color: #171717 !important; }
 
   /* Welcome screen */
-  .hero { text-align: center; margin: 10vh 0 2.25rem; }
+  .hero { text-align: center; margin: 12vh 0 2.25rem; }
   .hero h1 {
-    font-size: 2.2rem; font-weight: 600; letter-spacing: -0.025em; line-height: 1.15;
-    color: var(--ink); margin: 0.9rem 0 0.5rem; padding: 0;
+    font-size: 2rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2;
+    margin: 0.9rem 0 0.5rem; padding: 0;
   }
   .hero h1 a { display: none; }
-  .hero p { color: var(--ink-2); font-size: 1.05rem; line-height: 1.5; max-width: 30rem; margin: 0 auto; }
+  .stApp .hero p { color: var(--ink-2) !important; font-size: 1.02rem; line-height: 1.5;
+                   max-width: 30rem; margin: 0 auto; }
   .ridge path { stroke-dasharray: 420; stroke-dashoffset: 420;
                 animation: draw 1.6s cubic-bezier(0.2, 0.7, 0.2, 1) 0.1s forwards; }
   @keyframes draw { to { stroke-dashoffset: 0; } }
@@ -152,70 +166,86 @@ CSS = """
   [data-testid="stMain"] [data-testid="stHorizontalBlock"] .stButton button,
   section.main [data-testid="stHorizontalBlock"] .stButton button {
     justify-content: flex-start; text-align: left; min-height: 60px;
-    padding: 0.8rem 1rem; border-radius: 16px; background: #fff;
+    padding: 0.8rem 1rem; border-radius: 16px;
   }
   [data-testid="stHorizontalBlock"] .stButton button p { text-align: left; font-size: 0.93rem; }
 
   /* Messages */
   .user-row { display: flex; justify-content: flex-end; margin: 1.5rem 0 0.75rem; }
   .user-bubble {
-    background: var(--bubble); color: var(--ink); border-radius: 20px 20px 6px 20px;
-    padding: 0.65rem 1rem; max-width: 80%; font-size: 1rem; line-height: 1.5;
+    background: var(--surface); color: var(--ink); border-radius: 22px;
+    padding: 0.65rem 1.1rem; max-width: 80%; font-size: 1rem; line-height: 1.5;
     white-space: pre-wrap; overflow-wrap: anywhere;
   }
-  [data-testid="stChatMessage"] { background: transparent; padding: 0.25rem 0; gap: 0.85rem; }
+  [data-testid="stChatMessage"] { background: transparent !important; padding: 0.25rem 0; gap: 0.85rem; }
   [data-testid="stChatMessage"] .stMarkdown p,
-  [data-testid="stChatMessage"] .stMarkdown li { font-size: 1.02rem; line-height: 1.68; }
+  [data-testid="stChatMessage"] .stMarkdown li { font-size: 1.02rem; line-height: 1.7; }
   .cite {
     display: inline-block; white-space: nowrap; font-size: 0.76rem; font-weight: 500;
-    line-height: 1.5; color: var(--accent); background: var(--accent-soft);
-    border: 1px solid transparent; border-radius: 999px; padding: 0 0.5rem; margin: 0 0.1rem;
+    line-height: 1.5; color: var(--ink) !important; background: var(--surface);
+    border: 1px solid transparent; border-radius: 999px; padding: 0 0.55rem; margin: 0 0.1rem;
     vertical-align: 1px;
   }
-  .cite.auto { border: 1px dashed rgba(0, 113, 227, 0.5); }
-  .cursor { display: inline-block; width: 0.5em; height: 1.05em; margin-left: 2px;
-            background: var(--ink); border-radius: 2px; vertical-align: -2px;
-            animation: blink 1s steps(2, start) infinite; }
-  @keyframes blink { to { visibility: hidden; } }
+  .cite.auto { border: 1px dashed #6a6a6a; }
+  .cursor { display: inline-block; width: 0.55em; height: 0.55em; margin-left: 4px;
+            background: var(--ink); border-radius: 50%; vertical-align: 1px;
+            animation: pulse 1s ease-in-out infinite; }
+  @keyframes pulse { 50% { opacity: 0.3; } }
   .stats { display: flex; flex-wrap: wrap; gap: 0.35rem 1rem; color: var(--ink-3);
            font-size: 0.8rem; margin: 0.25rem 0 0.9rem; }
   .auto-note { color: var(--ink-3); font-size: 0.8rem; margin: -0.5rem 0 0.9rem; }
 
   /* Expanders and status */
   [data-testid="stExpander"] details {
-    border: 1px solid var(--line); border-radius: 14px; background: #fff; overflow: hidden;
+    border: 1px solid var(--line) !important; border-radius: 14px;
+    background: var(--surface-2) !important; overflow: hidden;
   }
   [data-testid="stExpander"] summary { font-weight: 500; font-size: 0.92rem; }
-  [data-testid="stExpander"] summary:hover { color: var(--accent); }
+  [data-testid="stExpander"] summary:hover span { color: #ffffff !important; }
+  [data-testid="stExpander"] svg { fill: var(--ink-2); color: var(--ink-2); }
   .check { background: var(--warn-soft); color: var(--warn); border-radius: 10px;
            padding: 0.55rem 0.75rem; font-size: 0.88rem; line-height: 1.45; margin-bottom: 0.5rem; }
 
   /* Source cards */
-  [data-testid="stVerticalBlockBorderWrapper"] { border-radius: 14px; border-color: var(--line); }
-  .src-title { font-weight: 600; font-size: 0.95rem; line-height: 1.35; }
+  [data-testid="stVerticalBlockBorderWrapper"] { border-radius: 14px; border-color: var(--line) !important; }
+  .src-title { font-weight: 600; font-size: 0.95rem; line-height: 1.35; color: var(--ink); }
   .src-author { color: var(--ink-2); font-size: 0.85rem; margin-top: 0.15rem; }
   .tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin: 0.55rem 0 0.6rem; }
-  .tag { font-size: 0.74rem; color: var(--ink-2); background: var(--fill);
+  .tag { font-size: 0.74rem; color: var(--ink-2); background: var(--surface);
          border-radius: 6px; padding: 0.1rem 0.45rem; }
-  .src-text { font-size: 0.88rem; line-height: 1.55; color: #3a3a3c;
+  .src-text { font-size: 0.88rem; line-height: 1.55; color: #cfcfcf;
               border-left: 2px solid var(--line); padding-left: 0.75rem; }
 
   /* Chat input */
-  [data-testid="stBottom"] > div { background: linear-gradient(to top, #fff 75%, rgba(255, 255, 255, 0)); }
+  [data-testid="stBottom"], [data-testid="stBottom"] > div,
+  [data-testid="stBottomBlockContainer"] { background: var(--bg) !important; }
   [data-testid="stChatInput"] {
-    border-radius: 26px; border: 1px solid var(--line); background: #fff;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 28px rgba(0, 0, 0, 0.07);
+    border-radius: 28px !important; border: 1px solid var(--line) !important;
+    background: var(--surface) !important; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
   }
-  [data-testid="stChatInput"]:focus-within {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.14), 0 8px 28px rgba(0, 0, 0, 0.07);
+  [data-testid="stChatInput"] > div { background: transparent !important; border: none !important; }
+  [data-testid="stChatInput"]:focus-within { border-color: #5a5a5a !important; }
+  [data-testid="stChatInput"] textarea {
+    font-size: 1rem; background: transparent !important;
+    color: var(--ink) !important; -webkit-text-fill-color: var(--ink) !important;
+    caret-color: var(--ink);
   }
-  [data-testid="stChatInput"] textarea { font-size: 1rem; }
+  [data-testid="stChatInput"] textarea::placeholder {
+    color: var(--ink-3) !important; -webkit-text-fill-color: var(--ink-3) !important; opacity: 1;
+  }
+  [data-testid="stChatInputSubmitButton"] { background: var(--ink) !important; border-radius: 50% !important; }
+  [data-testid="stChatInputSubmitButton"] svg { color: #171717 !important; fill: #171717 !important; }
+  [data-testid="stChatInputSubmitButton"]:disabled { background: #4a4a4a !important; }
+
+  /* Scrollbars */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-thumb { background: #3d3d3d; border-radius: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
 
   @media (max-width: 640px) {
     .block-container { padding-top: 1.5rem; }
     .hero { margin-top: 5vh; }
-    .hero h1 { font-size: 1.75rem; }
+    .hero h1 { font-size: 1.6rem; }
     .user-bubble { max-width: 90%; }
   }
 </style>
