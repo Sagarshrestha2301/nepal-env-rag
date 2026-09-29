@@ -88,6 +88,12 @@ CSS = """
   /* Base */
   .stApp { font-family: var(--font); color: var(--ink); background: #fff; }
   .stApp textarea, .stApp input, .stApp button { font-family: var(--font); }
+
+  /* Readable text even if Streamlit's dark theme is active (later rules override these) */
+  .stApp p, .stApp li, .stApp label, .stApp summary, .stApp h1, .stApp h2, .stApp h3,
+  .stApp [data-testid="stMarkdownContainer"], .stApp [data-testid="stWidgetLabel"],
+  .stApp [data-testid="stExpander"] summary span { color: var(--ink); }
+  .stApp .stButton button[kind="primary"] p { color: #fff; }
   .block-container { max-width: 760px; padding-top: 2.5rem; padding-bottom: 8rem; }
   header[data-testid="stHeader"] {
     background: rgba(255, 255, 255, 0.72);
